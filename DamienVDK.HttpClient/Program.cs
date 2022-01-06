@@ -1,15 +1,12 @@
 ﻿// Refit
 // Setup DI
-using Polly;
-using Polly.Extensions.Http;
-
 var services = new ServiceCollection();
 services.AddRefitClient<IGeneratedHttpClient>()
     .ConfigureHttpClient(httpClient =>
     {
         httpClient.BaseAddress = new Uri(Constants.BaseUrl);
     })
-    .AddRetryPolicy(GetRetryPolicy());
+    .AddPolicyHandler(GetRetryPolicy());
 
 // Get Service
 var serviceProvider = services.BuildServiceProvider();

@@ -9,4 +9,6 @@ global using Refit;
 global using DamienVDKHttpClient.Models;
 global using System.Text;
 global using DamienVDKHttpClient;
+global using Polly;
+global using Polly.Extensions.Http;
 
