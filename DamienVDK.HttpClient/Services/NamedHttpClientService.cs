@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace DamienVDKHttpClient.Services
+﻿namespace DamienVDKHttpClient.Services
 {
     public class NamedHttpClientService
     {
@@ -13,6 +7,15 @@ namespace DamienVDKHttpClient.Services
         public NamedHttpClientService(IHttpClientFactory httpClientFactory)
         {
             _httpClientFactory = httpClientFactory;
+        }
+
+        public async Task PostTodoAsync(Todo todo)
+        {
+            var httpClient = _httpClientFactory.CreateClient(Constants.HttpClientName);
+            var content = new StringContent(JsonConvert.SerializeObject(todo), Encoding.UTF8, "application/json");
+            var response = await httpClient.PostAsync($"{Constants.BaseUrl}V1/Todo", content);
+            Console.WriteLine($"Status code : {response.StatusCode}");
+            response.EnsureSuccessStatusCode();
         }
 
         public async Task<string> GetResultAsync()

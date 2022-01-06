@@ -1,4 +1,6 @@
-﻿namespace DamienVDKHttpClient.Extensions;
+﻿using Newtonsoft.Json.Linq;
+
+namespace DamienVDKHttpClient.Extensions;
 
 public static class StringExtensions
 {

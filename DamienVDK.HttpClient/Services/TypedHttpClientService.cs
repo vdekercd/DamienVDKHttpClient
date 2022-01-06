@@ -1,8 +1,14 @@
 ﻿namespace DamienVDKHttpClient.Services;
 
-public class SingletonHttpClientService
+public class TypedHttpClientService
 {
-    private static readonly HttpClient _httpClient = new HttpClient();
+    private readonly HttpClient _httpClient;
+
+    public TypedHttpClientService(HttpClient httpClient)
+    {
+        _httpClient = httpClient;
+        _httpClient.BaseAddress = new Uri(Constants.BaseUrl);
+    }
 
     public async Task PostTodoAsync(Todo todo)
     {
@@ -15,7 +21,7 @@ public class SingletonHttpClientService
     public async Task<string> GetTodoAsync()
     {
         var response = await _httpClient.GetAsync($"{Constants.BaseUrl}V1/Todo");
-        Console.WriteLine(response.StatusCode);
+        Console.WriteLine($"Status code : {response.StatusCode}");
         response.EnsureSuccessStatusCode();
         return await response.Content.ReadAsStringAsync();
     }

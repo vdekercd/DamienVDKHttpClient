@@ -9,7 +9,16 @@ public class BasicHttpClientService
         _httpClientFactory = httpClientFactory;
     }
 
-    public async Task<string> GetResultAsync()
+    public async Task PostTodoAsync(Todo todo)
+    {
+        var httpClient = _httpClientFactory.CreateClient();
+        var content = new StringContent(JsonConvert.SerializeObject(todo), Encoding.UTF8, "application/json");
+        var response = await httpClient.PostAsync($"{Constants.BaseUrl}V1/Todo", content);
+        Console.WriteLine($"Status code : {response.StatusCode}");
+        response.EnsureSuccessStatusCode();
+    }
+
+    public async Task<string> GetTodoAsync()
     {
         var httpClient = _httpClientFactory.CreateClient();
         var response = await httpClient.GetAsync($"{Constants.BaseUrl}V1/Todo");
