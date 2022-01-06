@@ -11,4 +11,6 @@ global using System.Text;
 global using DamienVDKHttpClient;
 global using Polly;
 global using Polly.Extensions.Http;
+global using System.Net;
+global using DamienVDKHttpClient.HttpMessageHandlers;
 

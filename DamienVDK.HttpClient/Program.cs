@@ -6,6 +6,7 @@ services.AddRefitClient<IGeneratedHttpClient>()
     {
         httpClient.BaseAddress = new Uri(Constants.BaseUrl);
     })
+    .AddHttpMessageHandler<TokenHandler>()
     .AddPolicyHandler(GetRetryPolicy());
 
 // Get Service
