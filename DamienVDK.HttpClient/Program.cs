@@ -1,25 +1,25 @@
-﻿// Refit
+﻿// Disposable
 // Setup DI
 var services = new ServiceCollection();
-services.AddRefitClient<IGeneratedHttpClient>()
+services.AddRefitClient<IGeneratedHttpClientService>()
     .ConfigureHttpClient(httpClient =>
     {
         httpClient.BaseAddress = new Uri(Constants.BaseUrl);
     })
-    .AddHttpMessageHandler<TokenHandler>()
-    .AddPolicyHandler(GetRetryPolicy());
+    .AddPolicyHandler(GetRetryPolicy())
+    .AddHttpMessageHandler<TokenHandler>();
 
 // Get Service
 var serviceProvider = services.BuildServiceProvider();
-var httpService = serviceProvider.GetRequiredService<IGeneratedHttpClient>();
+var httpService = serviceProvider.GetRequiredService<IGeneratedHttpClientService>();
 
 // Post
-await httpService.PostTodoAsync(Todo.GetNewInstance("IGenerated Factory Todo"));
+await httpService.PostTodoAsync(Todo.GetNewInstance("Generated"));
 
 // Get
 var result = await httpService.GetTodoAsync();
-var resultAsJson = JsonConvert.SerializeObject(result);
-Console.WriteLine(resultAsJson.BeautifyJson());
+var resultAsString = JsonConvert.SerializeObject(result);
+Console.WriteLine(resultAsString);
 
 static IAsyncPolicy<HttpResponseMessage> GetRetryPolicy()
 {

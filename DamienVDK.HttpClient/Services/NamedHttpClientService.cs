@@ -13,12 +13,12 @@
         {
             var httpClient = _httpClientFactory.CreateClient(Constants.HttpClientName);
             var content = new StringContent(JsonConvert.SerializeObject(todo), Encoding.UTF8, "application/json");
-            var response = await httpClient.PostAsync($"{Constants.BaseUrl}V1/Todo", content);
+            var response = await httpClient.PostAsync($"V1/Todo", content);
             Console.WriteLine($"Status code : {response.StatusCode}");
             response.EnsureSuccessStatusCode();
         }
 
-        public async Task<string> GetResultAsync()
+        public async Task<string> GetTodoAsync()
         {
             var httpClient = _httpClientFactory.CreateClient(Constants.HttpClientName);
             var response = await httpClient.GetAsync("V1/Todo");

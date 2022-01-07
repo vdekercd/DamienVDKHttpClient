@@ -1,6 +1,6 @@
 ﻿namespace DamienVDKHttpClient.Services;
 
-public interface IGeneratedHttpClient
+public interface IGeneratedHttpClientService
 {
     [Post("/V1/Todo")]
     Task PostTodoAsync(Todo todo);
